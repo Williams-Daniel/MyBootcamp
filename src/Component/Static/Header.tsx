@@ -18,7 +18,9 @@ const Header = ()=>{
                         <Nav1>Contacts</Nav1>
                     </Left>
                     <Middle>
+                        <Holder>
                         <Logo src={img}/>
+                        </Holder>
                         <LogoText>THE GIANT SHOEMAN</LogoText>
                     </Middle>
                     <Right>
@@ -44,7 +46,7 @@ display: flex;
 justify-content: center;
 background-color: transparent;
 color: white;
-border-bottom: 1px solid darkgrey;
+/* border-bottom: 1px solid darkgrey; */
 position: fixed;
 z-index: 10;
 
@@ -81,6 +83,15 @@ align-items: center;
 `
 const Nav1 = styled.div`
 margin: 0 15px;
+`
+const Holder = styled.div`
+width:50px;
+height: 60px;
+border-radius: 0 0 50px 30px;
+background-color: white;
+display: flex;
+justify-content: center;
+align-items: center;
 `
 const Nav = styled.div``
 const Logo = styled.img`
