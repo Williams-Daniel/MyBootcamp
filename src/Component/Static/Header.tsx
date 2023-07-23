@@ -3,14 +3,30 @@ import img from "../../Assets/Giantshoemancrop-removebg-preview.png"
 import {CiSearch,CiHeart} from "react-icons/ci"
 import {IoIosContact} from "react-icons/io"
 import {HiOutlineShoppingBag} from "react-icons/hi"
+import  { useState } from "react"
+import { Link } from "react-router-dom"
 
 
 
 
 const Header = ()=>{
+    const [show,setShow] = useState<boolean>(false)
+    const onShow = ()=>{
+        if(window.scrollY >= 50){
+            setShow(true)
+        }else{
+            setShow(false)
+        }
+
+
+    }
+window.addEventListener("scroll",onShow)
     return(
-        <div>
-            <Container>
+   
+            <div>
+            {
+                show?(
+                    <Container bg="#1B1B1B">
                 <Main>
                     <Left>
                         <Nav>Shoes</Nav>
@@ -18,33 +34,65 @@ const Header = ()=>{
                         <Nav1>Contacts</Nav1>
                     </Left>
                     <Middle>
+                        <Link to="/" style={{color:"white"}}>
                         <Holder>
                         <Logo src={img}/>
                         </Holder>
-                        <LogoText>THE GIANT SHOEMAN</LogoText>
+                        </Link>
+                        <LogoText color="white">THE GIANT SHOEMAN</LogoText>
                     </Middle>
                     <Right>
                     <SearchHolder>
                         <Icon/>
                         <SearchText>Search</SearchText>
                         </SearchHolder>
-                         <LoginIcon/>
+                         <Link to="/signup" style={{color:"white"}}><LoginIcon/></Link>
                          <FavIcon/>
                          <CartIcon/>
                     </Right>
                 </Main>
             </Container>
+                ):(
+                    <Container bg="transparent">
+                <Main>
+                    <Left>
+                        <Nav>Shoes</Nav>
+                        <Nav1>About</Nav1>
+                        <Nav1>Contacts</Nav1>
+                    </Left>
+                    <Middle>
+                    <Link to="/" style={{color:"white"}}>
+                        <Holder>
+                        <Logo src={img}/>
+                        </Holder>
+                        </Link>
+                        <LogoText color="white">THE GIANT SHOEMAN</LogoText>
+                    </Middle>
+                    <Right>
+                    <SearchHolder>
+                        <Icon/>
+                        <SearchText>Search</SearchText>
+                        </SearchHolder>
+                        <Link to="/signup" style={{color:"white"}}><LoginIcon/></Link>
+                         <FavIcon/>
+                         <CartIcon/>
+                    </Right>
+                </Main>
+            </Container>
+                )
+            }
         </div>
-    )
+        )
+    
 }
 
 export default Header
-const Container = styled.div`
+const Container = styled.div<{bg:string}>`
 width: 100%;
-height: 80px;
+height: 90px;
 display: flex;
 justify-content: center;
-background-color: transparent;
+background-color: ${({bg})=>bg};
 color: white;
 /* border-bottom: 1px solid darkgrey; */
 position: fixed;
@@ -85,8 +133,8 @@ const Nav1 = styled.div`
 margin: 0 15px;
 `
 const Holder = styled.div`
-width:50px;
-height: 60px;
+width:40px;
+height: 50px;
 border-radius: 0 0 50px 30px;
 background-color: white;
 display: flex;
@@ -95,14 +143,14 @@ align-items: center;
 `
 const Nav = styled.div``
 const Logo = styled.img`
-height: 50px;
+height: 45px;
 object-fit: contain;
 color: white;
 `
-const LogoText = styled.div`
+const LogoText = styled.div<{color:string}>`
 font-size: 20px;
 font-weight: 500;
-color: white;
+color: ${({color})=>color};
 `
 const SearchHolder = styled.div`
 display: flex;
