@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const URL = "http://localhost:4646/api/Auth"
+const URL:string = "http://localhost:4646/api"
 
 export const registerUser = async (data:any)=>{
     try {

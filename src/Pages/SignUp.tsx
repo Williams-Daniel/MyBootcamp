@@ -29,14 +29,16 @@ const SignUp = () => {
     resolver: yupResolver(Schema)
   })
 
-  const onSubmit = handleSubmit(async(res:any)=>{
+  const onSubmit = handleSubmit( async (res:any)=>{
     const {firstname,lastname,email,password} = res
-
-   await registerUser({firstname,lastname,email,password}).then(()=>{
+console.log("this is res" , res)
+    registerUser({firstname,lastname,email,password}).then(()=>{
       navigate("/signin")
+      console.log("testing")
     })
 
     reset()
+    // navigate("/signin")
   })
 
   return (
@@ -73,7 +75,7 @@ const SignUp = () => {
               {errors.email&&<Error>input email</Error>}
               <Input placeholder="Password" {...register("password")}/>
               {errors.password&&<Error>input password</Error>}
-              <Link to="/signin"><Button>Submit</Button></Link>
+              <Button type="submit">Submit</Button>
             </RightSideMain>
           </RightSide>
         </Main>
@@ -99,7 +101,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const Main = styled.div`
+const Main = styled.form`
   width: 800px;
   height: 650px;
   /* background-color: white; */
