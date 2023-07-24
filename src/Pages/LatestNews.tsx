@@ -39,10 +39,10 @@ export default LatestNews
 
 const Container = styled.div`
 width: 100%;
-height: 700px;
+height: 600px;
 display: flex;
 justify-content: center;
-/* background-color: brown; */
+background-color: rgb(165, 42, 42, 0.8);
 
 `
 const Main = styled.div`
@@ -52,7 +52,7 @@ height: 100%;
 const Top = styled.div`
 height: 10%;
 width: 100%;
-margin-top: 100px;
+margin-top: 70px;
 display: flex;
 flex-direction: column;
 /* justify-content: center; */

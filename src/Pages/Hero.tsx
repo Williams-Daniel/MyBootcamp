@@ -17,7 +17,7 @@ const Hero = ()=>{
                     <Text>You will find up to 25% off a Selection of our shoe</Text>
                     <ButtonHolder>
                 <Button1>MEN'S SELECTION</Button1>
-                <Button>MEN'S SELECTION</Button>
+                <Button>ACCESSORIES</Button>
                 </ButtonHolder>
                     </Holder>
                 </Main>

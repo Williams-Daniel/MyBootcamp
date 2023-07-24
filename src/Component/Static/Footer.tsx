@@ -21,7 +21,7 @@ const Footer = () => {
               <Icon2 />
             </IconContainer>
             <IconContainer>
-              <Icon3 />
+              <Icon3/>
             </IconContainer>
             <IconContainer>
               <Icon4 />

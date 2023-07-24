@@ -1,9 +1,43 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import img from "../Assets/Teal.webp";
 import img1 from "../Assets/signUpImg.webp"
-
+import * as yup from "yup"
+import {useForm} from "react-hook-form"
+import {yupResolver} from "@hookform/resolvers/yup"
+import { signIn } from "../Utils/authAPI";
+import { signUserGlobal } from "../Component/Global/globalState";
+ 
 const SignUp = () => {
+
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const Schema = yup.object({
+    email: yup.string().required(),
+    password: yup.string().required()
+  })
+
+  const {
+    register,
+    formState :errors,
+    handleSubmit,
+    reset
+
+  } = useForm({
+    resolver:yupResolver(Schema)
+  })
+
+  const onSubmit = handleSubmit(async (res: any) => {
+
+    signIn(res).then((res: any) => {
+        console.log("show: ", res)
+        dispatch(signUserGlobal(res))
+        navigate("/")
+    })
+
+})
+
   return (
     <div>
       <Container>

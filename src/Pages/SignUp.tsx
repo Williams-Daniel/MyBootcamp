@@ -1,15 +1,50 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import * as yup from "yup"
+import {useForm} from "react-hook-form"
+import {yupResolver} from "@hookform/resolvers/yup"
 import img from "../Assets/Boots.jpeg";
 import img2 from "../Assets/signUpImg.webp";
-const SignUp:React.FC = () => {
+import { registerUser } from "../Utils/authAPI";
+
+
+
+const SignUp = () => {
+
+
+  const  navigate = useNavigate()
+  const Schema = yup.object({
+    firstname: yup.string().required(),
+    lastname:yup.string().required(),
+    email:yup.string().required(),
+    password:yup.string().required()
+  })
+
+  const {
+    register,
+    formState:{errors},
+    handleSubmit,
+    reset
+  } = useForm({
+    resolver: yupResolver(Schema)
+  })
+
+  const onSubmit = handleSubmit(async(res:any)=>{
+    const {firstname,lastname,email,password} = res
+
+   await registerUser({firstname,lastname,email,password}).then(()=>{
+      navigate("/signin")
+    })
+
+    reset()
+  })
 
   return (
     <div>
       <Container>
       </Container>
       <BackDrop>
-      <Main>
+      <Main onSubmit={onSubmit}>
           <LeftSide>
             <BgImage src={img} />
           </LeftSide>
@@ -30,11 +65,15 @@ const SignUp:React.FC = () => {
                   <SignInDiv>Sign in</SignInDiv>
                 </Link>
               </SignInDivHolder>
-              <Input placeholder="First name" />
-              <Input placeholder="Last name" />
-              <Input placeholder="Email" />
-              <Input placeholder="Password" />
-              <Button>Submit</Button>
+              <Input placeholder="First name" {...register("firstname")} />
+              {errors.firstname&&<Error>input firstname</Error>}
+              <Input placeholder="Last name"  {...register("lastname")}/>
+              {errors.lastname&&<Error>input lastname</Error>}
+              <Input placeholder="Email" {...register("email")}/>
+              {errors.email&&<Error>input email</Error>}
+              <Input placeholder="Password" {...register("password")}/>
+              {errors.password&&<Error>input password</Error>}
+              <Link to="/signin"><Button>Submit</Button></Link>
             </RightSideMain>
           </RightSide>
         </Main>
@@ -49,6 +88,8 @@ const SignUp:React.FC = () => {
 
 
 export default SignUp;
+
+const Error = styled.div``
 
 const Container = styled.div`
   width: 100%;
@@ -96,7 +137,7 @@ const SignInDiv = styled.div`
   margin-top: 2px;
 
 `;
-const Button = styled.div`
+const Button = styled.button`
   width: 343px;
   height: 40px;
   display: flex;
